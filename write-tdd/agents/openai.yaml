@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write TDD"
+  short_description: "Collaborative TDD drafts from prompts and codebase context"
+  default_prompt: "Draft a TDD for this feature using template.md and ask me targeted questions where details are missing."
