@@ -1,6 +1,7 @@
 ---
 name: hoard
 description: Launch a background investigation that researches a topic, builds an interactive artifact, and pushes it to the tmatti/hoard knowledge-base repo. Use when the user invokes /hoard <topic>, or asks to "hoard" something or add it to the hoard.
+disable-model-invocation: true
 ---
 
 # Hoard investigation launcher
