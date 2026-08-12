@@ -28,10 +28,10 @@ Fire-and-forget: compose a brief, launch the runner in the background, keep work
 
    The optional third argument (or `HOARD_MODEL` env var) sets the model for the headless run, e.g. `opus`. Omit it to use the default. Pass it when the user asks for a specific model.
 
-4. **Tell the user it's launched**, then return to whatever you were doing. When the background task completes you'll be re-invoked: report the outcome — pushed folder + commit on success, or the log path on failure (logs live in `~/.claude/skills/hoard/logs/`).
+4. **Tell the user it's launched**, then return to whatever you were doing. When the background task completes you'll be re-invoked: report the outcome — pushed folder + commit on success, or the log path on failure (logs live in `~/.local/state/hoard/logs/`).
 
 ## Notes
 
-- The runner creates a temporary git worktree, so the user's hoard checkout and parallel `/hoard` runs are unaffected. Failed runs keep their worktree (under `~/.claude/skills/hoard/runs/`) for inspection.
+- The runner creates a temporary git worktree, so the user's hoard checkout and parallel `/hoard` runs are unaffected. Failed runs keep their worktree (under `~/.local/state/hoard/runs/`) for inspection. Override the state location with `HOARD_STATE_DIR`.
 - Runs typically take 5–30 minutes. Do not poll; the background task notifies on exit.
 - Requires the hoard repo at `~/dev/github/tmatti/hoard` (override with `HOARD_REPO` env var).

@@ -5,9 +5,11 @@ set -euo pipefail
 
 HOARD_REPO="${HOARD_REPO:-$HOME/dev/github/tmatti/hoard}"
 HOARD_MODEL="${3:-${HOARD_MODEL:-}}"
-SKILL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-RUNS_DIR="$SKILL_DIR/runs"
-LOGS_DIR="$SKILL_DIR/logs"
+# Runtime state lives outside the skill dir so worktrees of the (private)
+# hoard repo never sit inside another repo's checkout.
+STATE_DIR="${HOARD_STATE_DIR:-$HOME/.local/state}/hoard"
+RUNS_DIR="$STATE_DIR/runs"
+LOGS_DIR="$STATE_DIR/logs"
 
 BRIEF_FILE="${1:?usage: run.sh <brief-file> [slug]}"
 SLUG="${2:-investigation}"
@@ -23,6 +25,7 @@ echo "[hoard] run: $RUN_ID"
 echo "[hoard] brief: $BRIEF_FILE"
 
 git -C "$HOARD_REPO" fetch origin master
+git -C "$HOARD_REPO" worktree prune
 git -C "$HOARD_REPO" worktree add --detach "$WORKTREE" origin/master
 
 echo "[hoard] launching claude -p in $WORKTREE"
